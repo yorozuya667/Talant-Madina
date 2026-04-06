@@ -1,0 +1,1 @@
+# yorozuya667.github.io
