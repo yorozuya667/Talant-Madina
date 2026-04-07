@@ -84,6 +84,52 @@
       padding:12px;
       font-size:16px;
     }
+
+    .intro-overlay{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .9s ease}
+    .intro-overlay.hidden{opacity:0;pointer-events:none}
+    .intro-video{width:100%;height:100%;object-fit:cover}
+    .white-flash{position:absolute;inset:0;background:#fff;opacity:0}
+    .white-flash.active{animation:flash .55s ease forwards}
+    @keyframes flash{0%{opacity:0}38%{opacity:.95}100%{opacity:0}}
+
+    .site-content{opacity:0;transform:translateY(18px);transition:opacity .9s ease, transform .9s ease}
+    .site-content.visible{opacity:1;transform:translateY(0)}
+
+    .wrap{max-width:920px;margin:0 auto;padding:26px 16px 56px}
+    .card{background:var(--card);border:1px solid var(--stroke);border-radius:28px;padding:24px;box-shadow:0 18px 45px #7555331f}
+
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .eyebrow{display:inline-block;padding:8px 13px;border-radius:999px;background:#f6eee3;border:1px solid #e5d6c3;font-size:12px;font-weight:700;letter-spacing:.04em}
+    .lang-switch{display:flex;gap:6px}
+    .lang-btn{border:1px solid #d8c7b1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700;color:#6e5436;cursor:pointer}
+    .lang-btn.active{background:linear-gradient(180deg,#c79a62,#a8743d);color:#fff;border-color:#a8743d}
+
+    .hero{text-align:center;padding-top:8px}
+    h1{margin:14px 0 8px;font-family:"Playfair Display", Georgia, serif;font-size:clamp(34px,7vw,58px);line-height:1.08}
+    .lead{margin:0 auto;max-width:630px;line-height:1.7;color:var(--muted)}
+
+    .grid{display:grid;gap:12px;margin-top:24px}
+    @media (min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+    .info{background:#fff;border:1px solid #ead9c4;border-radius:18px;padding:16px}
+    .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#96744f;font-weight:800}
+    .value{font-size:22px;font-weight:800;margin-top:5px}
+
+    .timer-wrap{margin-top:26px}
+    .timer-title{text-align:center;color:var(--muted);margin:0 0 10px}
+    .timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .timer-box{background:#fff;border:1px solid #ead9c4;border-radius:16px;padding:11px 8px;text-align:center}
+    .timer-num{display:block;font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}
+    .timer-label{font-size:11px;text-transform:uppercase;color:#9a7b59}
+
+    .cta{margin-top:28px}
+    .cta-note{text-align:center;color:#70593f;line-height:1.6;margin:0 0 12px}
+    .field-grid{display:grid;gap:10px}
+    @media (min-width:760px){.field-grid{grid-template-columns:1fr 1fr}}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:14px;font-weight:700;color:#5f472c}
+    .field input{border:1px solid #ddc8ad;border-radius:13px;padding:12px;font-size:16px;background:#fff;color:#2d2217}
+    .field input:focus{outline:none;border-color:#bc8b56;box-shadow:0 0 0 3px #bc8b5629}
+
     .btn{
       width:100%;
       border:0;
@@ -213,6 +259,10 @@
     const form = document.getElementById('rsvpForm');
     const btn = document.getElementById('confirmBtn');
     const result = document.getElementById('result');
+    const introOverlay = document.getElementById('introOverlay');
+    const introVideo = document.getElementById('introVideo');
+    const whiteFlash = document.getElementById('whiteFlash');
+    const siteContent = document.getElementById('siteContent');
 
     const introOverlay = document.getElementById('introOverlay');
     const introVideo = document.getElementById('introVideo');
@@ -220,6 +270,15 @@
     const siteContent = document.getElementById('siteContent');
 
     runIntroAnimation();
+
+    document.querySelectorAll('.lang-btn').forEach(function(btnEl){
+      btnEl.addEventListener('click', function(){
+        setLang(btnEl.getAttribute('data-lang'));
+      });
+    });
+
+    runIntroAnimation();
+    setLang('ru');
 
     form.addEventListener('submit', function (e) {
       if (form.action.indexOf('https://tally.so/r/gDZB0P') !== -1) {
@@ -288,11 +347,12 @@
     function showError(message) {
       result.className = 'result err';
       result.textContent = message;
+      btn.disabled = false;
+      btn.textContent = i18n[currentLang].submitBtn;
     }
 
     function tick() {
       const deadline = new Date(DEADLINE_ISO).getTime();
-
       if (Number.isNaN(deadline)) {
         document.getElementById('days').textContent = '!!';
         document.getElementById('hours').textContent = '!!';
@@ -311,15 +371,10 @@
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('days').textContent = String(days);
-      document.getElementById('hours').textContent = String(hours);
-      document.getElementById('mins').textContent = String(mins);
-      document.getElementById('secs').textContent = String(secs);
+      document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24)));
+      document.getElementById('hours').textContent = String(Math.floor((diff / (1000 * 60 * 60)) % 24));
+      document.getElementById('mins').textContent = String(Math.floor((diff / (1000 * 60)) % 60));
+      document.getElementById('secs').textContent = String(Math.floor((diff / 1000) % 60));
     }
 
     tick();
