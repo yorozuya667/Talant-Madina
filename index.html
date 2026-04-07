@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation</title>
+  <title>Талант & Мадина — Wedding Invite</title>
   <style>
     :root{
       --soft:#faf7f2;
@@ -16,10 +16,11 @@
       --err-bg:#fdecec;
       --err-text:#8a2d2d;
     }
-    *{box-sizing:border-box}
-    body{
+
+    * { box-sizing: border-box; }
+    html, body { min-height:100%; }
+    body {
       margin:0;
-      font-family:Arial,system-ui,sans-serif;
       color:var(--text);
       background:linear-gradient(180deg,#fbf7f2 0%,#f5efe7 100%);
     }
@@ -91,7 +92,7 @@
       font-size:30px;
       font-weight:900;
       color:#fff;
-      background:linear-gradient(180deg,var(--accent) 0%,var(--accent-dark) 100%);
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
       cursor:pointer;
       box-shadow:0 10px 22px rgba(184,140,85,.28);
     }
@@ -131,103 +132,83 @@
     iframe[name="submitFrame"]{
       width:0;height:0;border:0;position:absolute;left:-9999px;top:-9999px;
     }
+    .btn:hover { transform:translateY(-1px); filter:brightness(1.06); }
+    .btn:disabled { opacity:.75; cursor:not-allowed; transform:none; }
+
+    .result { display:none; margin-top:12px; padding:12px; border-radius:12px; font-weight:700; text-align:center; }
+    .result.ok { display:block; background:var(--ok-bg); color:var(--ok-text); }
+    .result.err { display:block; background:var(--err-bg); color:var(--err-text); }
+
+    .links, .small { text-align:center; }
+    .links { margin-top:18px; }
+    .links a { color:#9bdcff; font-weight:700; text-decoration:none; }
+    .small { margin-top:16px; color:#cbd5ff; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <section class="hero">
-        <div class="eyebrow">Wedding Invitation</div>
-        <h1>Талант &amp; Мадина</h1>
-        <p class="lead">
-          Дорогие гости, будем очень рады разделить с вами наш особенный день.
-        </p>
-      </section>
+  <div class="noise"></div>
 
-      <section class="grid">
-        <div class="info">
-          <div class="label">Дата</div>
-          <div class="value">15 августа 2026</div>
-        </div>
-        <div class="info">
-          <div class="label">Время</div>
-          <div class="value">17:00</div>
-        </div>
-        <div class="info">
-          <div class="label">Место</div>
-          <div class="value">Astana, Saltanat Hall</div>
-        </div>
-        <div class="info">
-          <div class="label">Адрес</div>
-          <div class="value">г. Астана, пример адреса 10</div>
-        </div>
-      </section>
+  <div id="introOverlay" class="intro-overlay" aria-hidden="true">
+    <video id="introVideo" class="intro-video" autoplay muted playsinline preload="auto">
+      <source src="assets/intro.mp4" type="video/mp4" />
+    </video>
+    <div id="whiteFlash" class="white-flash"></div>
+  </div>
 
-      <section class="timer-wrap">
-        <p class="timer-title">До окончания подтверждения</p>
-        <div class="timer">
-          <div class="timer-box"><span class="timer-num" id="days">--</span><span class="timer-label">дней</span></div>
-          <div class="timer-box"><span class="timer-num" id="hours">--</span><span class="timer-label">часов</span></div>
-          <div class="timer-box"><span class="timer-num" id="mins">--</span><span class="timer-label">минут</span></div>
-          <div class="timer-box"><span class="timer-num" id="secs">--</span><span class="timer-label">секунд</span></div>
-        </div>
-      </section>
+  <main id="siteContent" class="site-content">
+    <div class="wrap">
+      <div class="card">
+        <section class="hero">
+          <div class="eyebrow">✨ Wedding Invitation</div>
+          <h1>Талант &amp; Мадина</h1>
+          <p class="lead">Дорогие гости, будем очень рады разделить с вами наш особенный день.</p>
+        </section>
 
-      <section class="cta">
-        <p class="cta-note">
-          Если вы сможете присутствовать, просто нажмите на большую кнопку ниже.
-          Если не нажмёте — мы будем считать, что вы не придёте.
-        </p>
+        <section class="grid">
+          <div class="info"><div class="label">Дата</div><div class="value">15 августа 2026</div></div>
+          <div class="info"><div class="label">Время</div><div class="value">17:00</div></div>
+          <div class="info"><div class="label">Место</div><div class="value">Astana, Saltanat Hall</div></div>
+          <div class="info"><div class="label">Адрес</div><div class="value">г. Астана, пример адреса 10</div></div>
+        </section>
 
-        <form id="rsvpForm" action="PASTE_YOUR_APPS_SCRIPT_WEBAPP_URL_HERE" method="POST" target="submitFrame">
-          <input type="hidden" name="token" id="tokenField" value="" />
-          <input type="hidden" name="answer" value="YES" />
-          <button id="confirmBtn" class="btn" type="submit">Я приду / I will come / Келемін</button>
-        </form>
+        <section class="timer-wrap">
+          <p class="timer-title">До окончания подтверждения</p>
+          <div class="timer">
+            <div class="timer-box"><span class="timer-num" id="days">--</span><span class="timer-label">дней</span></div>
+            <div class="timer-box"><span class="timer-num" id="hours">--</span><span class="timer-label">часов</span></div>
+            <div class="timer-box"><span class="timer-num" id="mins">--</span><span class="timer-label">минут</span></div>
+            <div class="timer-box"><span class="timer-num" id="secs">--</span><span class="timer-label">секунд</span></div>
+          </div>
+        </section>
 
-        <iframe name="submitFrame"></iframe>
-        <div id="result" class="result"></div>
-      </section>
+        <section class="cta">
+          <p class="cta-note">Введите имя и количество гостей, нажмите «Приду» — и мы перенаправим вас в Tally.</p>
+          <form id="rsvpForm" action="https://tally.so/r/PASTE_YOUR_TALLY_FORM_ID" method="GET" novalidate>
+            <div class="field-grid">
+              <div class="field">
+                <label for="guestName">Ваше имя</label>
+                <input id="guestName" name="guestName" type="text" minlength="2" required placeholder="Например, Айгерим" />
+              </div>
+              <div class="field">
+                <label for="guestCount">Количество гостей</label>
+                <input id="guestCount" name="guestCount" type="number" min="1" max="10" step="1" required value="1" />
+              </div>
+            </div>
+            <button id="confirmBtn" class="btn" type="submit">Приду</button>
+          </form>
+          <div id="result" class="result"></div>
+        </section>
 
-      <section class="lang">
-        <h2>Русский</h2>
-        <p>
-          Дорогие гости!<br>
-          Будем счастливы видеть вас на нашей свадьбе.<br>
-          Пожалуйста, подтвердите участие нажатием на кнопку выше.
-        </p>
-      </section>
-
-      <section class="lang">
-        <h2>Қазақша</h2>
-        <p>
-          Құрметті қонақтар!<br>
-          Сіздерді үйлену тойымызға қуана шақырамыз.<br>
-          Жоғарыдағы батырманы басып, қатысатыныңызды растауыңызды сұраймыз.
-        </p>
-      </section>
-
-      <section class="lang">
-        <h2>English</h2>
-        <p>
-          Dear guests,<br>
-          We would be happy to see you at our wedding.<br>
-          Please confirm your attendance by pressing the button above.
-        </p>
-      </section>
-
-      <div class="links">
-        <a href="https://2gis.kz" target="_blank" rel="noopener noreferrer">Открыть карту</a>
-      </div>
-
-      <div class="small">
-        Подтверждение принимается до 10 августа 2026, 23:59.
+        <div class="links"><a href="https://2gis.kz" target="_blank" rel="noopener noreferrer">Открыть карту</a></div>
+        <div class="small">Подтверждение принимается до 10 августа 2026, 23:59.</div>
       </div>
     </div>
   </main>
 
   <script>
     const DEADLINE_ISO = '2026-08-10T23:59:00+05:00';
+    const INTRO_MIN_MS = 1600;
+    const INTRO_MAX_MS = 6000;
 
     const form = document.getElementById('rsvpForm');
     const btn = document.getElementById('confirmBtn');
@@ -238,10 +219,7 @@
     const whiteFlash = document.getElementById('whiteFlash');
     const siteContent = document.getElementById('siteContent');
 
-    if (!token) {
-      btn.disabled = true;
-      showError('Ссылка недействительна: отсутствует токен.');
-    }
+    runIntroAnimation();
 
     form.addEventListener('submit', function (e) {
       if (form.action.indexOf('https://tally.so/r/gDZB0P') !== -1) {
@@ -250,22 +228,62 @@
         return;
       }
 
-      if (form.action.indexOf('PASTE_YOUR_APPS_SCRIPT_WEBAPP_URL_HERE') !== -1) {
-        e.preventDefault();
-        showError('В index.html не вставлен URL Apps Script web app.');
+      if (form.action.indexOf('PASTE_YOUR_TALLY_FORM_ID') !== -1) {
+        showError('Укажите вашу реальную ссылку Tally в action формы.');
+        window.open('https://tally.so', '_blank', 'noopener');
         return;
       }
 
       btn.disabled = true;
-      btn.textContent = 'Сохраняем...';
+      btn.textContent = 'Переходим...';
+      result.className = 'result ok';
+      result.textContent = 'Открываем форму подтверждения...';
 
-      // обычный cross-origin POST в скрытый iframe
-      setTimeout(function () {
-        result.className = 'result ok';
-        result.textContent = 'Спасибо! Если токен корректный, ваш ответ сохранён.';
-        btn.style.display = 'none';
-      }, 900);
+      const targetUrl = new URL(form.action, window.location.href);
+      targetUrl.searchParams.set('guestName', guestName);
+      targetUrl.searchParams.set('guestCount', guestCount);
+
+      window.location.href = targetUrl.toString();
     });
+
+    function runIntroAnimation() {
+      const startAt = Date.now();
+      let finished = false;
+
+      function finishIntro() {
+        if (finished) return;
+        finished = true;
+        const spent = Date.now() - startAt;
+        const delay = Math.max(0, INTRO_MIN_MS - spent);
+
+        setTimeout(function () {
+          whiteFlash.classList.add('active');
+          setTimeout(function () {
+            introOverlay.classList.add('hidden');
+            siteContent.classList.add('visible');
+            setTimeout(function () {
+              introOverlay.style.display = 'none';
+            }, 900);
+          }, 170);
+        }, delay);
+      }
+
+      const hardStop = setTimeout(finishIntro, INTRO_MAX_MS);
+      introVideo.addEventListener('ended', function () {
+        clearTimeout(hardStop);
+        finishIntro();
+      }, { once: true });
+
+      introVideo.addEventListener('error', function () {
+        clearTimeout(hardStop);
+        finishIntro();
+      }, { once: true });
+
+      introVideo.play().catch(function () {
+        clearTimeout(hardStop);
+        finishIntro();
+      });
+    }
 
     function showError(message) {
       result.className = 'result err';
@@ -286,12 +304,8 @@
       }
 
       const diff = deadline - Date.now();
-
       if (diff <= 0) {
-        document.getElementById('days').textContent = '0';
-        document.getElementById('hours').textContent = '0';
-        document.getElementById('mins').textContent = '0';
-        document.getElementById('secs').textContent = '0';
+        ['days','hours','mins','secs'].forEach(function(id){ document.getElementById(id).textContent='0'; });
         btn.disabled = true;
         btn.textContent = getLocalizedText('closed');
         return;
