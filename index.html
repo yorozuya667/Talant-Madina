@@ -88,10 +88,12 @@
     .envelope-card::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
     .envelope-icon {
-      width: 120px; /* Сделали чуть шире для узоров */
-      height: 60px;
+      width: 110px; /* Делаем размер чуть крупнее для квадратного лого */
+      height: auto; /* Автоматическая высота, чтобы не искажались пропорции */
       margin: 0 auto 30px;
       display: block;
+      border-radius: 50%; /* На всякий случай сгладит края, если фон не идеально сольется */
+      mix-blend-mode: multiply; /* Этот трюк заставит фон картинки идеально слиться с фоном сайта */
     }
 
     .cover-invited {
@@ -299,15 +301,7 @@
     </div>
 
     <div class="envelope-card">
-      <svg class="envelope-icon" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 36 30 C 15 15, 15 45, 36 30" stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-        <circle cx="52" cy="30" r="14" stroke="var(--accent)" stroke-width="3.5" />
-        <circle cx="68" cy="30" r="14" stroke="var(--accent)" stroke-width="3.5" />
-
-        <path d="M 84 30 C 105 15, 105 45, 84 30" stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      </svg>
-
+      <img src="logo.png" alt="Кольца" class="envelope-icon">
       <span class="cover-invited" data-i18n-cover="invited">Сізді шақырды</span>
       <h2 class="cover-names" data-i18n-cover="names"><span style="white-space:nowrap">Талант &nbsp;&amp;&nbsp; Мадина</span></h2>
       <p class="cover-subtitle" data-i18n-cover="date">28 маусым 2026 · Алматы</p>
