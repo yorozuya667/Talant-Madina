@@ -18,129 +18,88 @@
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-    
+
     body {
       margin: 0;
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Montserrat', sans-serif;
       overflow-x: hidden;
-      font-size: 16px; 
     }
 
+    /* noise texture overlay */
     .noise {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1; opacity: 0.04; pointer-events: none;
+      position: fixed; inset: 0; z-index: 1; opacity: 0.04; pointer-events: none;
       background-image: url('https://www.transparenttextures.com/patterns/felt.png');
     }
 
-    /* --- ИНТРО И ЛОАДЕР --- */
+    /* ─── ИНТРО ─────────────────────────────────────────── */
     #introOverlay {
       position: fixed; inset: 0; z-index: 9999; background: #000;
       display: flex; align-items: center; justify-content: center;
       transition: background 1.5s ease, opacity 1.5s ease;
     }
-    
     #loader {
       position: absolute; width: 40px; height: 40px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-top-color: #fff; border-radius: 50%;
-      animation: spin 1s linear infinite; z-index: 10000; transition: opacity 0.5s ease;
+      border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff;
+      border-radius: 50%; animation: spin 1s linear infinite;
+      z-index: 10000; transition: opacity 0.5s ease;
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    #introVideo { width: 100%; height: 100%; object-fit: cover; transition: opacity 1.5s ease-in-out; }
-    .fade-out-video { opacity: 0 !important; }
-    .fade-out-overlay { opacity: 0 !important; pointer-events: none; }
+    #introVideo { width: 100%; height: 100%; object-fit: cover; transition: opacity 1.5s ease; }
+    .fade-out-video    { opacity: 0 !important; }
+    .fade-out-overlay  { opacity: 0 !important; pointer-events: none; }
 
-    /* --- КОНТЕНТ САЙТА --- */
+    /* ─── КОНТЕНТ ────────────────────────────────────────── */
     #siteContent {
       position: relative; z-index: 2; opacity: 0; transform: translateY(30px);
       transition: all 1.5s ease; max-width: 700px; margin: 0 auto; padding: 40px 20px 60px;
     }
     #siteContent.visible { opacity: 1; transform: translateY(0); }
 
+    /* ─── ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ ───────────────────────────── */
     .lang-switcher-wrapper { display: flex; justify-content: center; margin-bottom: 40px; }
     .lang-switcher {
       display: flex; gap: 5px; background: #fff; padding: 6px; border-radius: 40px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid rgba(184, 140, 85, 0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 1px solid rgba(184,140,85,0.3);
     }
     .lang-btn {
       padding: 12px 30px; font-size: 15px; font-weight: 600; letter-spacing: 1px;
       border-radius: 30px; color: var(--text); cursor: pointer; transition: all 0.3s;
+      border: none; background: transparent; font-family: inherit; outline: none;
     }
-    .lang-btn:hover { background: #f0ede8; }
-    .lang-btn.active { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(184, 140, 85, 0.4); }
+    .lang-btn:hover:not(.active) { background: #f0ede8; }
+    .lang-btn.active { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(184,140,85,0.4); }
 
+    /* ─── HERO ───────────────────────────────────────────── */
     .hero { text-align: center; margin-bottom: 40px; }
-    
-    .eyebrow { 
-      font-size: 16px; 
-      font-weight: 600;
-      text-transform: uppercase; 
-      letter-spacing: 4px; 
-      color: var(--accent); 
-      margin-bottom: 20px; 
-      display: block; 
+    .eyebrow {
+      font-size: 16px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 4px; color: var(--accent); margin-bottom: 20px; display: block;
     }
-    
-    /* ИСПРАВЛЕННЫЙ ЗАГОЛОВОК */
-    h1 { 
-      font-family: 'Playfair Display', serif !important; 
-      font-size: clamp(30px, 8.5vw, 72px) !important; 
-      margin: 0; 
-      font-weight: 400; 
-      font-style: italic; 
-      line-height: 1.2;
-      letter-spacing: -0.5px;
+    h1 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: clamp(30px, 8.5vw, 72px) !important;
+      margin: 0; font-weight: 400; font-style: italic; line-height: 1.2; letter-spacing: -0.5px;
     }
+    .no-break { white-space: nowrap; }
+    .lead { font-size: 24px; font-weight: 300; margin-top: 25px; opacity: 0.9; line-height: 1.5; }
 
-    .no-break {
-      white-space: nowrap;
-    }
-    
-    .lead { 
-      font-size: 24px; 
-      font-weight: 300; 
-      margin-top: 25px; 
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
+    /* ─── КАРТОЧКИ ИНФО ──────────────────────────────────── */
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0; }
-    .info-item { background: var(--card-bg); border: 1px solid rgba(184, 140, 85, 0.2); padding: 25px; text-align: center; }
-    
-    .info-label { 
-      font-size: 13px; 
-      font-weight: 700;
-      text-transform: uppercase; 
-      letter-spacing: 2px; 
-      margin-bottom: 10px; 
-      color: var(--accent);
-    }
-    
-    .info-value { 
-      font-family: 'Playfair Display', serif !important; 
-      font-size: 26px !important; 
-      font-weight: 700 !important;
-      line-height: 1.2;
-    }
-    
-    .address-text { 
-      font-family: 'Montserrat', sans-serif; 
-      font-size: 15px; 
-      opacity: 0.9; 
-      font-weight: 600; 
-      margin-top: 8px; 
-      display: block; 
-    }
+    .info-item { background: var(--card-bg); border: 1px solid rgba(184,140,85,0.2); padding: 25px; text-align: center; }
+    .info-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
+    .info-value { font-family: 'Playfair Display', serif !important; font-size: 26px !important; font-weight: 700 !important; line-height: 1.2; }
+    .address-text { font-family: 'Montserrat', sans-serif; font-size: 15px; opacity: 0.9; font-weight: 600; margin-top: 8px; display: block; }
 
-    .maps-wrapper { margin-bottom: 50px; text-align: center; }
+    /* ─── КНОПКИ КАРТЫ ───────────────────────────────────── */
+    .maps-wrapper { text-align: center; margin-bottom: 50px; }
     .maps-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 20px; }
     .maps-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
     .map-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 12px 30px; background: #fff; border: 1px solid var(--accent); border-radius: 8px;
+      display: flex; align-items: center; gap: 10px; padding: 12px 30px;
+      background: #fff; border: 1px solid var(--accent); border-radius: 8px;
       color: var(--text); font-size: 14px; font-weight: 600; letter-spacing: 1px;
       text-decoration: none; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.03);
     }
@@ -148,66 +107,64 @@
     .map-btn:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
     .map-btn:hover svg { fill: #fff; }
 
+    /* ─── ТАЙМЕР ─────────────────────────────────────────── */
     .timer-wrap { margin: 60px 0; text-align: center; }
     .timer { display: flex; justify-content: center; gap: 15px; }
     .timer-box { width: 80px; }
-    .timer-num { 
-      font-family: 'Playfair Display', serif !important; 
-      font-size: 36px !important; 
-      display: block; 
-      border-bottom: 1px solid var(--accent); 
+    .timer-num {
+      font-family: 'Playfair Display', serif !important; font-size: 36px !important;
+      display: block; border-bottom: 1px solid var(--accent);
     }
     .timer-label { font-size: 10px; text-transform: uppercase; margin-top: 5px; display: block; opacity: 0.6; }
 
+    /* ─── ФОРМА / КНОПКА ─────────────────────────────────── */
     .form-card { background: #fff; padding: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-    .form-card h3 { font-family: 'Playfair Display', serif !important; font-size: 26px; margin-bottom: 30px; margin-top: 0; font-weight: 400; }
-    
+    .form-card h3 { font-family: 'Playfair Display', serif !important; font-size: 26px; margin: 0 0 30px; font-weight: 400; }
     .btn {
-      display: inline-block; width: 100%; background: var(--text); color: #fff; 
-      padding: 20px; font-family: inherit; font-size: 14px; text-decoration: none;
-      text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s;
+      display: block; background: var(--text); color: #fff; padding: 20px;
+      font-family: inherit; font-size: 14px; text-decoration: none;
+      text-transform: uppercase; letter-spacing: 2px; transition: background 0.3s;
     }
     .btn:hover { background: var(--accent); }
 
+    /* ─── СТРАНИЦА УСПЕХА ────────────────────────────────── */
     #successBlock {
       display: none; text-align: center; padding: 60px 20px;
-      background: var(--card-bg); border: 1px solid rgba(184, 140, 85, 0.2);
+      background: var(--card-bg); border: 1px solid rgba(184,140,85,0.2);
       border-radius: 8px; margin-top: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.05);
     }
     #successBlock svg { width: 60px; height: 60px; fill: var(--accent); margin-bottom: 20px; }
-    
-    #successBlock h1 {
-      font-size: clamp(40px, 10vw, 84px) !important;
-      margin-bottom: 15px;
-    }
+    #successBlock h1 { font-size: clamp(40px, 10vw, 84px) !important; margin-bottom: 15px; }
 
+    /* ─── КНОПКА МУЗЫКИ ──────────────────────────────────── */
     #musicToggle {
       position: fixed; bottom: 20px; right: 20px; z-index: 10001;
-      background: #fff; border: 1px solid rgba(184, 140, 85, 0.5);
-      border-radius: 50%; width: 50px; height: 50px;
+      width: 50px; height: 50px; background: #fff;
+      border: 1px solid rgba(184,140,85,0.5); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: all 0.3s;
+      cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s;
     }
     #musicToggle svg { width: 24px; height: 24px; fill: var(--accent); }
 
-    @media (max-width: 600px) { 
-      .info-grid { grid-template-columns: 1fr; } 
+    /* ─── АДАПТИВ ────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
       h1 { font-size: 34px !important; }
-      .lead { font-size: 20px; } 
+      .lead { font-size: 20px; }
     }
   </style>
 </head>
 <body>
+
   <audio id="bgMusic" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <div id="musicToggle">
-    <svg id="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg id="icon-muted" viewBox="0 0 24 24">
       <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
     </svg>
-    <svg id="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <svg id="icon-playing" viewBox="0 0 24 24" style="display:none">
       <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
     </svg>
   </div>
@@ -217,16 +174,17 @@
   <div id="introOverlay">
     <div id="loader"></div>
     <video id="introVideo" autoplay muted playsinline>
-      <source src="intro.mp4" type="video/mp4" />
+      <source src="intro.mp4" type="video/mp4">
     </video>
   </div>
 
   <main id="siteContent">
+
     <div class="lang-switcher-wrapper">
       <div class="lang-switcher" id="langSwitcher">
-        <span class="lang-btn active" data-lang="kz">KZ</span>
-        <span class="lang-btn" data-lang="ru">RU</span>
-        <span class="lang-btn" data-lang="en">EN</span>
+        <button class="lang-btn" data-lang="kz">KZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
       </div>
     </div>
 
@@ -238,27 +196,38 @@
       </section>
 
       <section class="info-grid">
-        <div class="info-item"><div class="info-label" data-i18n="lbl_date">Күні</div><div class="info-value" data-i18n="val_date">28 маусым 2026</div></div>
-        <div class="info-item"><div class="info-label" data-i18n="lbl_time">Уақыты</div><div class="info-value" data-i18n="val_time">16:00</div></div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="lbl_date">Күні</div>
+          <div class="info-value" data-i18n="val_date">28 маусым 2026</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="lbl_time">Уақыты</div>
+          <div class="info-value" data-i18n="val_time">16:00</div>
+        </div>
         <div class="info-item">
           <div class="info-label" data-i18n="lbl_place">Өтетін орны</div>
           <div class="info-value" data-i18n="val_place">Magauya Grand Hall<br><span class="address-text">Майқы би көшесі, 2/1</span></div>
         </div>
-        <div class="info-item"><div class="info-label" data-i18n="lbl_city">Қала</div><div class="info-value" data-i18n="val_city">Алматы</div></div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="lbl_city">Қала</div>
+          <div class="info-value" data-i18n="val_city">Алматы</div>
+        </div>
       </section>
 
       <div class="maps-wrapper">
         <div class="maps-title" data-i18n="map_title">Картадан ашу</div>
         <div class="maps-container">
           <a href="https://2gis.kz/almaty/geo/70000001111187725" target="_blank" class="map-btn">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.751 15.542h4.524v-1.127l-3.321-3.321c.548-.592.883-1.378.883-2.24 0-1.812-1.469-3.281-3.282-3.281a3.28 3.28 0 0 0-3.281 3.281c0 1.222.671 2.285 1.666 2.852l-2.672 2.672v1.164h7.483zm-1.127-6.688a1.312 1.312 0 1 1-2.624 0 1.312 1.312 0 0 1 2.624 0z"/>
-                <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
+            <svg viewBox="0 0 24 24">
+              <path d="M13.751 15.542h4.524v-1.127l-3.321-3.321c.548-.592.883-1.378.883-2.24 0-1.812-1.469-3.281-3.282-3.281a3.28 3.28 0 0 0-3.281 3.281c0 1.222.671 2.285 1.666 2.852l-2.672 2.672v1.164h7.483zm-1.127-6.688a1.312 1.312 0 1 1-2.624 0 1.312 1.312 0 0 1 2.624 0z"/>
+              <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/>
             </svg>
             2GIS
           </a>
           <a href="https://maps.google.com/?q=43.328333,77.040278" target="_blank" class="map-btn">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
             Google Maps
           </a>
         </div>
@@ -280,188 +249,166 @@
     </div>
 
     <div id="successBlock">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 24 24">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
       </svg>
       <h1 data-i18n="success_title">Рақмет!</h1>
       <p class="lead" data-i18n="success_text">Жауабыңыз қабылданды, сізді асыға күтеміз! 🤍</p>
     </div>
+
   </main>
 
   <script>
-    const bgMusic = document.getElementById('bgMusic');
+    // ─── МУЗЫКА ───────────────────────────────────────────
+    const bgMusic     = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
-    const iconMuted = document.getElementById('icon-muted');
+    const iconMuted   = document.getElementById('icon-muted');
     const iconPlaying = document.getElementById('icon-playing');
 
     function playMusic() {
       bgMusic.play().then(() => {
-        iconMuted.style.display = 'none';
+        iconMuted.style.display   = 'none';
         iconPlaying.style.display = 'block';
-      }).catch(err => console.log("Sound blocked"));
+      }).catch(() => {});
     }
 
-    function toggleMusic() {
-      if (bgMusic.paused) playMusic();
-      else {
+    musicToggle.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        playMusic();
+      } else {
         bgMusic.pause();
-        iconMuted.style.display = 'block';
+        iconMuted.style.display   = 'block';
         iconPlaying.style.display = 'none';
       }
-    }
-    musicToggle.addEventListener('click', toggleMusic);
+    });
 
-    const enableAudio = () => {
+    // Автозапуск при первом касании/клике
+    const triggerAudio = () => {
       playMusic();
-      window.removeEventListener('click', enableAudio);
-      window.removeEventListener('touchstart', enableAudio);
+      window.removeEventListener('click',      triggerAudio);
+      window.removeEventListener('touchstart', triggerAudio);
     };
-    window.addEventListener('click', enableAudio);
-    window.addEventListener('touchstart', enableAudio);
+    window.addEventListener('click',      triggerAudio);
+    window.addEventListener('touchstart', triggerAudio);
 
+    // ─── I18N ─────────────────────────────────────────────
     const translations = {
       kz: {
-        eyebrow: "Үйлену тойына шақыру",
-        names: "Талант <span class='no-break'>& Мадина</span>",
-        lead: "Сіздерді қуанышымызға ортақ болуға шақырамыз",
-        lbl_date: "Күні", val_date: "28 маусым 2026",
-        lbl_time: "Уақыты", val_time: "16:00",
-        lbl_place: "Өтетін орны", val_place: "Magauya Grand Hall<br><span class='address-text'>Майқы би көшесі, 2/1</span>",
-        lbl_city: "Қала", val_city: "Алматы",
-        map_title: "Картадан ашу", 
-        lbl_days: "Күн", lbl_hours: "Сағат", lbl_mins: "Мин", lbl_secs: "Сек",
-        form_title: "Жауабыңызды күтеміз",
-        btn_submit: "Келемін!",
+        eyebrow:      "Үйлену тойына шақыру",
+        names:        "Талант <span class='no-break'>& Мадина</span>",
+        lead:         "Сіздерді қуанышымызға ортақ болуға шақырамыз",
+        lbl_date:     "Күні",          val_date:  "28 маусым 2026",
+        lbl_time:     "Уақыты",        val_time:  "16:00",
+        lbl_place:    "Өтетін орны",   val_place: "Magauya Grand Hall<br><span class='address-text'>Майқы би көшесі, 2/1</span>",
+        lbl_city:     "Қала",          val_city:  "Алматы",
+        map_title:    "Картадан ашу",
+        lbl_days:     "Күн",    lbl_hours: "Сағат", lbl_mins: "Мин",  lbl_secs: "Сек",
+        form_title:   "Жауабыңызды күтеміз",
+        btn_submit:   "Келемін!",
         success_title: "Рақмет!",
-        success_text: "Жауабыңыз қабылданды, сізді асыға күтеміз! 🤍"
+        success_text:  "Сізді асыға күтеміз! 🤍"
       },
       ru: {
-        eyebrow: "Приглашение на свадьбу",
-        names: "Талант <span class='no-break'>& Мадина</span>",
-        lead: "Рады пригласить вас на наше торжество",
-        lbl_date: "Дата", val_date: "28 июня 2026",
-        lbl_time: "Время", val_time: "16:00",
-        lbl_place: "Место", val_place: "Magauya Grand Hall<br><span class='address-text'>ул. Майкы Би, 2/1</span>",
-        lbl_city: "Город", val_city: "Алматы",
-        map_title: "Открыть на карте", 
-        lbl_days: "Дней", lbl_hours: "Часов", lbl_mins: "Мин", lbl_secs: "Сек",
-        form_title: "Ждем вашего ответа",
-        btn_submit: "Приду!",
+        eyebrow:      "Приглашение на свадьбу",
+        names:        "Талант <span class='no-break'>& Мадина</span>",
+        lead:         "Рады пригласить вас на наше торжество",
+        lbl_date:     "Дата",    val_date:  "28 июня 2026",
+        lbl_time:     "Время",   val_time:  "16:00",
+        lbl_place:    "Место",   val_place: "Magauya Grand Hall<br><span class='address-text'>ул. Майкы Би, 2/1</span>",
+        lbl_city:     "Город",   val_city:  "Алматы",
+        map_title:    "Открыть на карте",
+        lbl_days:     "Дней",   lbl_hours: "Часов", lbl_mins: "Мин",  lbl_secs: "Сек",
+        form_title:   "Ждем вашего ответа",
+        btn_submit:   "Приду!",
         success_title: "Спасибо!",
-        success_text: "Ваш ответ принят, с нетерпением ждем вас! 🤍"
+        success_text:  "С нетерпением ждем вас! 🤍"
       },
       en: {
-        eyebrow: "Wedding Invitation",
-        names: "Talant <span class='no-break'>& Madina</span>",
-        lead: "We are delighted to invite you to our celebration",
-        lbl_date: "Date", val_date: "June 28, 2026",
-        lbl_time: "Time", val_time: "4:00 PM",
-        lbl_place: "Venue", val_place: "Magauya Grand Hall<br><span class='address-text'>Maiky Bi St., 2/1</span>",
-        lbl_city: "City", val_city: "Almaty",
-        map_title: "Open in Maps", 
-        lbl_days: "Days", lbl_hours: "Hours", lbl_mins: "Mins", lbl_secs: "Secs",
-        form_title: "We await your reply",
-        btn_submit: "I'll be there!",
+        eyebrow:      "Wedding Invitation",
+        names:        "Talant <span class='no-break'>& Madina</span>",
+        lead:         "We are delighted to invite you to our celebration",
+        lbl_date:     "Date",    val_date:  "June 28, 2026",
+        lbl_time:     "Time",    val_time:  "4:00 PM",
+        lbl_place:    "Venue",   val_place: "Magauya Grand Hall<br><span class='address-text'>Maiky Bi St., 2/1</span>",
+        lbl_city:     "City",    val_city:  "Almaty",
+        map_title:    "Open in Maps",
+        lbl_days:     "Days",   lbl_hours: "Hours", lbl_mins: "Mins", lbl_secs: "Secs",
+        form_title:   "We await your reply",
+        btn_submit:   "I'll be there!",
         success_title: "Thank you!",
-        success_text: "Your response has been recorded, we look forward to seeing you! 🤍"
+        success_text:  "We look forward to seeing you! 🤍"
       }
     };
 
     function changeLanguage(lang) {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          el.innerHTML = translations[lang][key];
-        }
+        if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
       });
       document.documentElement.lang = lang;
       localStorage.setItem('wedding_lang', lang);
-      const tallyBtn = document.getElementById('tallyBtn');
-      if (tallyBtn) { tallyBtn.href = `https://tally.so/r/gDZB0P?lang=${lang}`; }
+      document.getElementById('tallyBtn').href = `https://tally.so/r/gDZB0P?lang=${lang}`;
     }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        changeLanguage(e.target.getAttribute('data-lang'));
-      });
+      btn.addEventListener('click', () => changeLanguage(btn.dataset.lang));
     });
 
-    const savedLang = localStorage.getItem('wedding_lang') || 'kz';
-    document.querySelectorAll('.lang-btn').forEach(b => {
-      if (b.getAttribute('data-lang') === savedLang) b.classList.add('active');
-      else b.classList.remove('active');
-    });
-    changeLanguage(savedLang);
+    changeLanguage(localStorage.getItem('wedding_lang') || 'kz');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-      document.getElementById('introOverlay').style.display = 'none'; 
-      document.getElementById('siteContent').classList.add('visible'); 
-      document.getElementById('mainContentBlock').style.display = 'none'; 
-      document.getElementById('successBlock').style.display = 'block'; 
-    } else {
-      runIntro();
-    }
+    // ─── ТАЙМЕР ───────────────────────────────────────────
+    const DEADLINE = new Date('2026-06-28T16:00:00+05:00');
 
-    const DEADLINE_ISO = '2026-06-28T16:00:00+05:00'; 
-
-    function runIntro() {
-      const video = document.getElementById('introVideo');
-      const overlay = document.getElementById('introOverlay');
-      const site = document.getElementById('siteContent');
-      const loader = document.getElementById('loader');
-      let isTransitioned = false;
-
-      const showSite = () => {
-        if (isTransitioned) return;
-        isTransitioned = true;
-        if(video) video.classList.add('fade-out-video');
-        loader.style.opacity = '0';
-        setTimeout(() => {
-          overlay.style.background = '#f9f7f4'; 
-          overlay.classList.add('fade-out-overlay');
-          site.classList.add('visible');
-        }, 1000); 
-        setTimeout(() => overlay.style.display = 'none', 3000); 
-      };
-
-      const patienceTimer = setTimeout(() => {
-        if (!isTransitioned) showSite();
-      }, 5000);
-
-      if (video) {
-        video.addEventListener('loadedmetadata', () => {
-          if (window.innerWidth <= 600) video.currentTime = 2;
-        });
-        video.addEventListener('playing', () => {
-          clearTimeout(patienceTimer);
-          loader.style.opacity = '0';
-        });
-        video.addEventListener('waiting', () => loader.style.opacity = '1');
-        video.ontimeupdate = function() {
-          if (video.currentTime >= 7) showSite();
-        };
-        video.onerror = showSite;
-        video.play().catch(() => showSite());
-      } else {
-        showSite();
-      }
-    }
-    
     function updateTimer() {
-      const diff = new Date(DEADLINE_ISO) - new Date();
-      if (diff <= 0) return; 
-      const d = document.getElementById('days'), h = document.getElementById('hours'),
-            m = document.getElementById('mins'), s = document.getElementById('secs');
-      if (d) d.textContent = Math.floor(diff / 86400000).toString().padStart(2, '0');
-      if (h) h.textContent = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-      if (m) m.textContent = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-      if (s) s.textContent = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+      const diff = DEADLINE - new Date();
+      if (diff <= 0) return;
+      document.getElementById('days').textContent  = Math.floor(diff / 86400000).toString().padStart(2, '0');
+      document.getElementById('hours').textContent = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+      document.getElementById('mins').textContent  = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+      document.getElementById('secs').textContent  = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
     }
     updateTimer();
     setInterval(updateTimer, 1000);
+
+    // ─── ИНТРО / SUCCESS ──────────────────────────────────
+    if (new URLSearchParams(window.location.search).get('success') === 'true') {
+      document.getElementById('introOverlay').style.display    = 'none';
+      document.getElementById('siteContent').classList.add('visible');
+      document.getElementById('mainContentBlock').style.display = 'none';
+      document.getElementById('successBlock').style.display    = 'block';
+    } else {
+      const video   = document.getElementById('introVideo');
+      const overlay = document.getElementById('introOverlay');
+      const site    = document.getElementById('siteContent');
+      const loader  = document.getElementById('loader');
+      let done = false;
+
+      function showSite() {
+        if (done) return;
+        done = true;
+        video.classList.add('fade-out-video');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.background = '#f9f7f4';   // плавная смена фона чёрный→бежевый
+          overlay.classList.add('fade-out-overlay');
+          site.classList.add('visible');
+        }, 1000);
+        setTimeout(() => { overlay.style.display = 'none'; }, 3000);
+      }
+
+      const patience = setTimeout(showSite, 5000);
+
+      video.addEventListener('loadedmetadata', () => { if (window.innerWidth <= 600) video.currentTime = 2; });
+      video.addEventListener('playing',        () => { clearTimeout(patience); loader.style.opacity = '0'; });
+      video.addEventListener('waiting',        () => { loader.style.opacity = '1'; });
+      video.ontimeupdate = () => { if (video.currentTime >= 7) showSite(); };
+      video.onerror = showSite;
+      video.play().catch(showSite);
+    }
   </script>
+
 </body>
 </html>
