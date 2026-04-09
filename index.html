@@ -229,7 +229,7 @@
 
         <section class="cta">
           <p class="cta-note">Введите имя и количество гостей, нажмите «Приду» — и мы перенаправим вас в Tally.</p>
-          <form id="rsvpForm" action="https://tally.so/r/PASTE_YOUR_TALLY_FORM_ID" method="GET" novalidate>
+          <form id="rsvpForm" action="https://tally.so/r/gDZB0P" method="GET" novalidate>
             <div class="field-grid">
               <div class="field">
                 <label for="guestName">Ваше имя</label>
@@ -287,7 +287,7 @@
         return;
       }
 
-      if (form.action.indexOf('PASTE_YOUR_TALLY_FORM_ID') !== -1) {
+      if (form.action.indexOf('https://tally.so/r/gDZB0P') !== -1) {
         showError('Укажите вашу реальную ссылку Tally в action формы.');
         window.open('https://tally.so', '_blank', 'noopener');
         return;
