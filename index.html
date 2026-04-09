@@ -355,25 +355,36 @@
         if (isTransitioned) return;
         isTransitioned = true;
 
-        overlay.style.background = '#f9f7f4'; 
+        // 1. Сначала плавно гасим само видео (фон пока остается)
         if(video) video.classList.add('fade-out-video');
         loader.style.opacity = '0';
 
+        // 2. Через 1.5 секунды после начала гашения видео, начинаем проявлять сайт
+        // Это уберет эффект "торопливости"
         setTimeout(() => {
+          overlay.style.background = '#f9f7f4'; // Меняем черный фон на цвет сайта
           overlay.classList.add('fade-out-overlay');
           site.classList.add('visible');
-        }, 2000); 
+        }, 1500); // Было 1000, поставим 1500
         
-        setTimeout(() => overlay.style.display = 'none', 3500);
+        // 3. Полностью удаляем оверлей из кода только через 4 секунды
+        setTimeout(() => overlay.style.display = 'none', 4000); // Было 2500
       };
 
       if (video) {
-        video.play().catch(() => console.warn("Автоплей заблокирован"));
-        video.onended = showSite;
+        video.play().catch(() => showSite());
+        
+        // ВОТ ТУТ ГЛАВНОЕ: когда видео закончилось, мы не прыгаем сразу, 
+        // а ждем 1.5 секунды перед запуском анимации исчезновения
+        video.onended = () => {
+           setTimeout(showSite, 1500); 
+        };
+        
         video.onerror = showSite;
       }
 
-      setTimeout(() => { if (!isTransitioned) showSite(); }, 5000);
+      // Если видео зависло или не грузится, через 8 секунд сайт все равно откроется
+      setTimeout(() => { if (!isTransitioned) showSite(); }, 8000);
     }
     
     function updateTimer() {
