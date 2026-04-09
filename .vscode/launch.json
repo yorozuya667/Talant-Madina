@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Открыть index.html напрямую",
+            "file": "${workspaceFolder}/index.html",
+            // Это создаст временный профиль и решит проблему с attach
+            "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile"
+        }
+    ]
+}

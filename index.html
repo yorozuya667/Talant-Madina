@@ -1,384 +1,254 @@
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Талант & Мадина — Wedding Invite</title>
+  <title>Талант & Мадина — Приглашение</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
-    :root{
-      --soft:#faf7f2;
-      --text:#2b2b2b;
-      --muted:#6b675f;
-      --accent:#b88c55;
-      --accent-dark:#9e7442;
-      --ok-bg:#eef7ee;
-      --ok-text:#1f5d1f;
-      --err-bg:#fdecec;
-      --err-text:#8a2d2d;
+    /* --- НАСТРОЙКИ ЦВЕТОВ И ШРИФТОВ --- */
+    :root {
+      --bg: #f9f7f4;        /* Светлый, теплый фон */
+      --text: #2d2d2d;      /* Темно-серый текст (мягче черного) */
+      --accent: #b88c55;    /* Золотисто-бронзовый акцент */
+      --card-bg: rgba(255, 255, 255, 0.8);
     }
 
-    * { box-sizing: border-box; }
-    html, body { min-height:100%; }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    
     body {
-      margin:0;
-      color:var(--text);
-      background:linear-gradient(180deg,#fbf7f2 0%,#f5efe7 100%);
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
     }
 
-    .intro-overlay{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      background:#000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      transition:opacity .85s ease;
-    }
-    .intro-overlay.hidden{opacity:0;pointer-events:none}
-    .intro-video{width:100%;height:100%;object-fit:cover;background:#000}
-    .white-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-    .white-flash.active{animation:flash .55s ease forwards}
-    @keyframes flash{0%{opacity:0}38%{opacity:.95}100%{opacity:0}}
-
-    .site-content{opacity:0;transform:translateY(16px);transition:opacity .9s ease, transform .9s ease}
-    .site-content.visible{opacity:1;transform:translateY(0)}
-
-    .wrap{max-width:840px;margin:0 auto;padding:24px 16px 48px}
-    .card{
-      background:rgba(255,255,255,.92);
-      border:1px solid rgba(255,255,255,.6);
-      border-radius:28px;
-      padding:24px;
-      box-shadow:0 10px 28px rgba(0,0,0,.08);
-      backdrop-filter: blur(6px);
-    }
-    .hero{text-align:center;padding:12px 0 8px}
-    .eyebrow{display:inline-block;padding:8px 14px;border-radius:999px;background:#f0e7da;font-size:14px;font-weight:700;margin-bottom:14px}
-    h1{margin:0 0 12px;font-size:36px;line-height:1.15}
-    .lead{margin:0 auto 22px;max-width:580px;font-size:18px;line-height:1.6;color:var(--muted)}
-    .grid{display:grid;gap:14px;margin:22px 0}
-    @media (min-width:700px){.grid{grid-template-columns:1fr 1fr}h1{font-size:52px}}
-    .info{background:var(--soft);border-radius:20px;padding:18px}
-    .label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8b857b;margin-bottom:8px}
-    .value{font-size:22px;font-weight:800;line-height:1.4}
-
-    .timer-wrap{margin:28px 0 10px;text-align:center}
-    .timer-title{margin:0 0 14px;font-size:16px;font-weight:700;color:var(--muted)}
-    .timer{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .timer-box{background:var(--soft);border-radius:20px;padding:14px 8px}
-    .timer-num{display:block;font-size:30px;font-weight:900;font-variant-numeric:tabular-nums}
-    .timer-label{display:block;margin-top:6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#8b857b;font-weight:700}
-
-    .cta{margin:28px 0 10px}
-    .cta-note{text-align:center;color:var(--muted);margin:0 0 14px;line-height:1.6}
-    .field-grid{display:grid;gap:12px;margin-bottom:12px}
-    @media (min-width:700px){.field-grid{grid-template-columns:1fr 1fr}}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field label{font-size:14px;font-weight:700;color:#6f4e2f}
-    .field input{
-      border:1px solid #ddcfbf;
-      background:#fff;
-      border-radius:14px;
-      padding:12px;
-      font-size:16px;
+    /* Эффект легкой бумажной текстуры на фоне */
+    .noise {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; opacity: 0.04; pointer-events: none;
+      background-image: url('https://www.transparenttextures.com/patterns/felt.png');
     }
 
-    .intro-overlay{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .9s ease}
-    .intro-overlay.hidden{opacity:0;pointer-events:none}
-    .intro-video{width:100%;height:100%;object-fit:cover}
-    .white-flash{position:absolute;inset:0;background:#fff;opacity:0}
-    .white-flash.active{animation:flash .55s ease forwards}
-    @keyframes flash{0%{opacity:0}38%{opacity:.95}100%{opacity:0}}
-
-    .site-content{opacity:0;transform:translateY(18px);transition:opacity .9s ease, transform .9s ease}
-    .site-content.visible{opacity:1;transform:translateY(0)}
-
-    .wrap{max-width:920px;margin:0 auto;padding:26px 16px 56px}
-    .card{background:var(--card);border:1px solid var(--stroke);border-radius:28px;padding:24px;box-shadow:0 18px 45px #7555331f}
-
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    .eyebrow{display:inline-block;padding:8px 13px;border-radius:999px;background:#f6eee3;border:1px solid #e5d6c3;font-size:12px;font-weight:700;letter-spacing:.04em}
-    .lang-switch{display:flex;gap:6px}
-    .lang-btn{border:1px solid #d8c7b1;background:#fff;border-radius:10px;padding:7px 10px;font-weight:700;color:#6e5436;cursor:pointer}
-    .lang-btn.active{background:linear-gradient(180deg,#c79a62,#a8743d);color:#fff;border-color:#a8743d}
-
-    .hero{text-align:center;padding-top:8px}
-    h1{margin:14px 0 8px;font-family:"Playfair Display", Georgia, serif;font-size:clamp(34px,7vw,58px);line-height:1.08}
-    .lead{margin:0 auto;max-width:630px;line-height:1.7;color:var(--muted)}
-
-    .grid{display:grid;gap:12px;margin-top:24px}
-    @media (min-width:760px){.grid{grid-template-columns:1fr 1fr}}
-    .info{background:#fff;border:1px solid #ead9c4;border-radius:18px;padding:16px}
-    .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#96744f;font-weight:800}
-    .value{font-size:22px;font-weight:800;margin-top:5px}
-
-    .timer-wrap{margin-top:26px}
-    .timer-title{text-align:center;color:var(--muted);margin:0 0 10px}
-    .timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .timer-box{background:#fff;border:1px solid #ead9c4;border-radius:16px;padding:11px 8px;text-align:center}
-    .timer-num{display:block;font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}
-    .timer-label{font-size:11px;text-transform:uppercase;color:#9a7b59}
-
-    .cta{margin-top:28px}
-    .cta-note{text-align:center;color:#70593f;line-height:1.6;margin:0 0 12px}
-    .field-grid{display:grid;gap:10px}
-    @media (min-width:760px){.field-grid{grid-template-columns:1fr 1fr}}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field label{font-size:14px;font-weight:700;color:#5f472c}
-    .field input{border:1px solid #ddc8ad;border-radius:13px;padding:12px;font-size:16px;background:#fff;color:#2d2217}
-    .field input:focus{outline:none;border-color:#bc8b56;box-shadow:0 0 0 3px #bc8b5629}
-
-    .btn{
-      width:100%;
-      border:0;
-      border-radius:20px;
-      padding:22px 18px;
-      font-size:30px;
-      font-weight:900;
-      color:#fff;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      cursor:pointer;
-      box-shadow:0 10px 22px rgba(184,140,85,.28);
+    /* --- АНИМАЦИЯ И ИНТРО --- */
+    #introOverlay {
+      position: fixed; inset: 0; z-index: 9999; background: #000;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease;
     }
-    .btn:disabled{opacity:.75;cursor:default}
-    .result{display:none;margin-top:14px;padding:16px;border-radius:16px;font-weight:700;line-height:1.5;text-align:center}
-    .result.ok{display:block;background:var(--ok-bg);color:var(--ok-text)}
-    .result.err{display:block;background:var(--err-bg);color:var(--err-text)}
-    .lang{
-      margin-top:22px;
-      padding-top:22px;
-      border-top:1px solid #eee5d9;
-    }
-    .lang h2{
-      margin:0 0 8px;
-      font-size:21px;
-    }
-    .lang p{
-      margin:0;
-      line-height:1.8;
-      color:var(--text);
-    }
-    .links{
-      margin-top:18px;
-      text-align:center;
-    }
-    .links a{
-      color:#6f4e2f;
-      font-weight:700;
-      text-decoration:none;
-    }
-    .small{
-      margin-top:20px;
-      text-align:center;
-      color:var(--muted);
-      font-size:14px;
-    }
-    iframe[name="submitFrame"]{
-      width:0;height:0;border:0;position:absolute;left:-9999px;top:-9999px;
-    }
-    .btn:hover { transform:translateY(-1px); filter:brightness(1.06); }
-    .btn:disabled { opacity:.75; cursor:not-allowed; transform:none; }
+    /* Класс для скрытия видео после проигрывания */
+    #introOverlay.hidden { display: none; }
+    
+    #introVideo { width: 100%; height: 100%; object-fit: cover; }
 
-    .result { display:none; margin-top:12px; padding:12px; border-radius:12px; font-weight:700; text-align:center; }
-    .result.ok { display:block; background:var(--ok-bg); color:var(--ok-text); }
-    .result.err { display:block; background:var(--err-bg); color:var(--err-text); }
+    /* Белая вспышка */
+    #whiteFlash {
+      position: fixed; inset: 0; z-index: 10000; background: #fff;
+      opacity: 0; pointer-events: none;
+    }
+    /* Анимация вспышки: появляется за 0.3с, висит, затем исчезает */
+    #whiteFlash.active { animation: flashEffect 0.8s ease-in-out forwards; }
+    @keyframes flashEffect { 
+      0%   { opacity: 0; } 
+      40%  { opacity: 1; } 
+      100% { opacity: 0; } 
+    }
 
-    .links, .small { text-align:center; }
-    .links { margin-top:18px; }
-    .links a { color:#9bdcff; font-weight:700; text-decoration:none; }
-    .small { margin-top:16px; color:#cbd5ff; }
+    /* --- ОСНОВНОЙ КОНТЕНТ ПРИГЛАШЕНИЯ --- */
+    #siteContent {
+      position: relative; z-index: 2; opacity: 0; transform: translateY(30px);
+      transition: all 1.2s ease; max-width: 700px; margin: 0 auto; padding: 60px 20px;
+    }
+    /* Класс, который плавно показывает контент после видео */
+    #siteContent.visible { opacity: 1; transform: translateY(0); }
+
+    .hero { text-align: center; margin-bottom: 50px; }
+    .eyebrow { 
+      font-size: 12px; text-transform: uppercase; letter-spacing: 4px; 
+      color: var(--accent); margin-bottom: 20px; display: block;
+    }
+    h1 { 
+      font-family: 'Playfair Display', serif; font-size: clamp(40px, 10vw, 72px); 
+      margin: 0; font-weight: 400; font-style: italic;
+    }
+    .lead { font-size: 18px; font-weight: 300; margin-top: 20px; opacity: 0.8; }
+
+    /* Сетка с датой и местом */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0; }
+    .info-item {
+      background: var(--card-bg); border: 1px solid rgba(184, 140, 85, 0.2);
+      padding: 25px; text-align: center;
+    }
+    .info-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; opacity: 0.6; }
+    .info-value { font-family: 'Playfair Display', serif; font-size: 20px; }
+
+    /* Стили таймера */
+    .timer-wrap { margin: 60px 0; text-align: center; }
+    .timer { display: flex; justify-content: center; gap: 15px; }
+    .timer-box { width: 80px; }
+    .timer-num { font-family: 'Playfair Display', serif; font-size: 32px; display: block; border-bottom: 1px solid var(--accent); }
+    .timer-label { font-size: 10px; text-transform: uppercase; margin-top: 5px; display: block; opacity: 0.6; }
+
+    /* Стили формы */
+    .form-card {
+      background: #fff; padding: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: left;
+    }
+    .form-card h3 { font-family: 'Playfair Display', serif; font-size: 24px; text-align: center; margin-bottom: 30px; }
+    
+    .input-group { margin-bottom: 20px; }
+    .input-group label { display: block; font-size: 12px; margin-bottom: 8px; font-weight: 600; }
+    input {
+      width: 100%; padding: 15px; border: 1px solid #e0e0e0;
+      font-family: inherit; transition: border-color 0.3s;
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+
+    .btn {
+      width: 100%; background: var(--text); color: #fff; border: none;
+      padding: 20px; font-family: inherit; font-size: 14px;
+      text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn:hover { background: var(--accent); }
+    .btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 48px; }
+    }
   </style>
 </head>
 <body>
   <div class="noise"></div>
 
-  <div id="introOverlay" class="intro-overlay" aria-hidden="true">
-    <video id="introVideo" class="intro-video" autoplay muted playsinline preload="auto">
-      <source src="assets/intro.mp4" type="video/mp4" />
+  <div id="introOverlay">
+    <video id="introVideo" autoplay muted playsinline>
+      <source src="intro.mp4" type="video/mp4" />
     </video>
-    <div id="whiteFlash" class="white-flash"></div>
+    <div id="whiteFlash"></div>
   </div>
 
-  <main id="siteContent" class="site-content">
-    <div class="wrap">
-      <div class="card">
-        <section class="hero">
-          <div class="eyebrow">✨ Wedding Invitation</div>
-          <h1>Талант &amp; Мадина</h1>
-          <p class="lead">Дорогие гости, будем очень рады разделить с вами наш особенный день.</p>
-        </section>
+  <main id="siteContent">
+    <section class="hero">
+      <span class="eyebrow">Wedding Invitation</span>
+      <h1>Талант & Мадина</h1>
+      <p class="lead">Рады пригласить вас на наше торжество</p>
+    </section>
 
-        <section class="grid">
-          <div class="info"><div class="label">Дата</div><div class="value">15 августа 2026</div></div>
-          <div class="info"><div class="label">Время</div><div class="value">17:00</div></div>
-          <div class="info"><div class="label">Место</div><div class="value">Astana, Saltanat Hall</div></div>
-          <div class="info"><div class="label">Адрес</div><div class="value">г. Астана, пример адреса 10</div></div>
-        </section>
+    <section class="info-grid">
+      <div class="info-item"><div class="info-label">Дата</div><div class="info-value">15 августа 2026</div></div>
+      <div class="info-item"><div class="info-label">Время</div><div class="info-value">17:00</div></div>
+      <div class="info-item"><div class="info-label">Место</div><div class="info-value">Saltanat Hall</div></div>
+      <div class="info-item"><div class="info-label">Город</div><div class="info-value">Астана</div></div>
+    </section>
 
-        <section class="timer-wrap">
-          <p class="timer-title">До окончания подтверждения</p>
-          <div class="timer">
-            <div class="timer-box"><span class="timer-num" id="days">--</span><span class="timer-label">дней</span></div>
-            <div class="timer-box"><span class="timer-num" id="hours">--</span><span class="timer-label">часов</span></div>
-            <div class="timer-box"><span class="timer-num" id="mins">--</span><span class="timer-label">минут</span></div>
-            <div class="timer-box"><span class="timer-num" id="secs">--</span><span class="timer-label">секунд</span></div>
-          </div>
-        </section>
-
-        <section class="cta">
-          <p class="cta-note">Введите имя и количество гостей, нажмите «Приду» — и мы перенаправим вас в Tally.</p>
-          <form id="rsvpForm" action="https://tally.so/r/gDZB0P" method="GET" novalidate>
-            <div class="field-grid">
-              <div class="field">
-                <label for="guestName">Ваше имя</label>
-                <input id="guestName" name="guestName" type="text" minlength="2" required placeholder="Например, Айгерим" />
-              </div>
-              <div class="field">
-                <label for="guestCount">Количество гостей</label>
-                <input id="guestCount" name="guestCount" type="number" min="1" max="10" step="1" required value="1" />
-              </div>
-            </div>
-            <button id="confirmBtn" class="btn" type="submit">Приду</button>
-          </form>
-          <div id="result" class="result"></div>
-        </section>
-
-        <div class="links"><a href="https://2gis.kz" target="_blank" rel="noopener noreferrer">Открыть карту</a></div>
-        <div class="small">Подтверждение принимается до 10 августа 2026, 23:59.</div>
+    <section class="timer-wrap">
+      <div class="timer">
+        <div class="timer-box"><span class="timer-num" id="days">00</span><span class="timer-label">Дней</span></div>
+        <div class="timer-box"><span class="timer-num" id="hours">00</span><span class="timer-label">Часов</span></div>
+        <div class="timer-box"><span class="timer-num" id="mins">00</span><span class="timer-label">Мин</span></div>
+        <div class="timer-box"><span class="timer-num" id="secs">00</span><span class="timer-label">Сек</span></div>
       </div>
+    </section>
+
+    <div class="form-card">
+      <h3>Подтвердите участие</h3>
+      <form id="rsvpForm" action="https://tally.so/r/gDZB0P">
+        <div class="input-group">
+          <label>ВАШЕ ИМЯ И ФАМИЛИЯ</label>
+          <input type="text" id="guestName" required placeholder="Например, Иван Иванов">
+        </div>
+        <div class="input-group">
+          <label>КОЛИЧЕСТВО ГОСТЕЙ</label>
+          <input type="number" id="guestCount" value="1" min="1" max="10">
+        </div>
+        <button type="submit" id="confirmBtn" class="btn">Отправить ответ</button>
+      </form>
     </div>
   </main>
 
   <script>
-    const DEADLINE_ISO = '2026-08-10T23:59:00+05:00';
-    const INTRO_MIN_MS = 1600;
-    const INTRO_MAX_MS = 6000;
+    // --- 1. НАСТРОЙКИ ---
+    const DEADLINE_ISO = '2026-08-10T23:59:00+05:00'; // Дата закрытия формы
 
+    // --- 2. ЛОГИКА АНИМАЦИИ (Видео -> Вспышка -> Сайт) ---
+    function runIntro() {
+      const video = document.getElementById('introVideo');
+      const overlay = document.getElementById('introOverlay');
+      const flash = document.getElementById('whiteFlash');
+      const site = document.getElementById('siteContent');
+      
+      // Эта функция запускает переход
+      const showSite = () => {
+        // Шаг 1: Запускаем белую вспышку
+        flash.classList.add('active');
+        
+        // Шаг 2: В середине вспышки (через 300мс) меняем экраны
+        setTimeout(() => {
+          overlay.classList.add('hidden'); // Прячем видео навсегда
+          site.classList.add('visible');   // Показываем контент приглашения
+        }, 300); 
+      };
+
+      // Как только видео доиграло до конца - вызываем переход
+      video.onended = showSite;
+      
+      // Запасной план: если у гостя слабый интернет и видео выдало ошибку
+      video.onerror = showSite; 
+    }
+    
+    // Запускаем интро при загрузке страницы
+    runIntro();
+
+    // --- 3. ОТПРАВКА ФОРМЫ (без токенов) ---
     const form = document.getElementById('rsvpForm');
     const btn = document.getElementById('confirmBtn');
-    const result = document.getElementById('result');
-    const introOverlay = document.getElementById('introOverlay');
-    const introVideo = document.getElementById('introVideo');
-    const whiteFlash = document.getElementById('whiteFlash');
-    const siteContent = document.getElementById('siteContent');
 
-    const introOverlay = document.getElementById('introOverlay');
-    const introVideo = document.getElementById('introVideo');
-    const whiteFlash = document.getElementById('whiteFlash');
-    const siteContent = document.getElementById('siteContent');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Отменяем стандартную перезагрузку страницы
+      
+      const name = document.getElementById('guestName').value;
+      const count = document.getElementById('guestCount').value;
 
-    runIntroAnimation();
+      // Создаем ссылку для перехода в Tally
+      const tallyUrl = new URL(form.action);
+      
+      // Передаем параметры имени и количества гостей в URL
+      tallyUrl.searchParams.set('guestName', name);
+      tallyUrl.searchParams.set('guestCount', count);
 
-    document.querySelectorAll('.lang-btn').forEach(function(btnEl){
-      btnEl.addEventListener('click', function(){
-        setLang(btnEl.getAttribute('data-lang'));
-      });
-    });
-
-    runIntroAnimation();
-    setLang('ru');
-
-    form.addEventListener('submit', function (e) {
-      if (form.action.indexOf('https://tally.so/r/gDZB0P') !== -1) {
-        e.preventDefault();
-        showError('Ссылка недействительна: отсутствует токен.');
-        return;
-      }
-
-      if (form.action.indexOf('https://tally.so/r/gDZB0P') !== -1) {
-        showError('Укажите вашу реальную ссылку Tally в action формы.');
-        window.open('https://tally.so', '_blank', 'noopener');
-        return;
-      }
-
+      // Визуально показываем гостю, что процесс пошел
       btn.disabled = true;
-      btn.textContent = 'Переходим...';
-      result.className = 'result ok';
-      result.textContent = 'Открываем форму подтверждения...';
-
-      const targetUrl = new URL(form.action, window.location.href);
-      targetUrl.searchParams.set('guestName', guestName);
-      targetUrl.searchParams.set('guestCount', guestCount);
-
-      window.location.href = targetUrl.toString();
+      btn.textContent = 'Открываем форму...';
+      
+      // Перенаправляем
+      window.location.href = tallyUrl.toString();
     });
 
-    function runIntroAnimation() {
-      const startAt = Date.now();
-      let finished = false;
-
-      function finishIntro() {
-        if (finished) return;
-        finished = true;
-        const spent = Date.now() - startAt;
-        const delay = Math.max(0, INTRO_MIN_MS - spent);
-
-        setTimeout(function () {
-          whiteFlash.classList.add('active');
-          setTimeout(function () {
-            introOverlay.classList.add('hidden');
-            siteContent.classList.add('visible');
-            setTimeout(function () {
-              introOverlay.style.display = 'none';
-            }, 900);
-          }, 170);
-        }, delay);
-      }
-
-      const hardStop = setTimeout(finishIntro, INTRO_MAX_MS);
-      introVideo.addEventListener('ended', function () {
-        clearTimeout(hardStop);
-        finishIntro();
-      }, { once: true });
-
-      introVideo.addEventListener('error', function () {
-        clearTimeout(hardStop);
-        finishIntro();
-      }, { once: true });
-
-      introVideo.play().catch(function () {
-        clearTimeout(hardStop);
-        finishIntro();
-      });
-    }
-
-    function showError(message) {
-      result.className = 'result err';
-      result.textContent = message;
-      btn.disabled = false;
-      btn.textContent = i18n[currentLang].submitBtn;
-    }
-
-    function tick() {
-      const deadline = new Date(DEADLINE_ISO).getTime();
-      if (Number.isNaN(deadline)) {
-        document.getElementById('days').textContent = '!!';
-        document.getElementById('hours').textContent = '!!';
-        document.getElementById('mins').textContent = '!!';
-        document.getElementById('secs').textContent = '!!';
-        showError(getLocalizedText('deadlineError'));
-        btn.disabled = true;
-        return;
-      }
-
-      const diff = deadline - Date.now();
+    // --- 4. ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ---
+    function updateTimer() {
+      const diff = new Date(DEADLINE_ISO) - new Date();
       if (diff <= 0) {
-        ['days','hours','mins','secs'].forEach(function(id){ document.getElementById(id).textContent='0'; });
+        // Если время вышло, блокируем кнопку
         btn.disabled = true;
-        btn.textContent = getLocalizedText('closed');
+        btn.textContent = 'Прием ответов закрыт';
         return;
       }
 
-      document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24)));
-      document.getElementById('hours').textContent = String(Math.floor((diff / (1000 * 60 * 60)) % 24));
-      document.getElementById('mins').textContent = String(Math.floor((diff / (1000 * 60)) % 60));
-      document.getElementById('secs').textContent = String(Math.floor((diff / 1000) % 60));
+      // Высчитываем дни, часы, минуты и секунды
+      document.getElementById('days').textContent = Math.floor(diff / 86400000).toString().padStart(2, '0');
+      document.getElementById('hours').textContent = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+      document.getElementById('mins').textContent = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+      document.getElementById('secs').textContent = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
     }
-
-    tick();
-    setInterval(tick, 1000);
+    
+    // Запускаем таймер сразу и обновляем каждую секунду
+    updateTimer();
+    setInterval(updateTimer, 1000);
   </script>
 </body>
 </html>
