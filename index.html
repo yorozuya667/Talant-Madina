@@ -38,7 +38,7 @@
     #introOverlay {
       position: fixed; inset: 0; z-index: 9999; background: #000;
       display: flex; align-items: center; justify-content: center;
-      transition: background 1.5s ease;
+      transition: background 1.5s ease, opacity 1.5s ease;
     }
     
     #loader {
@@ -194,7 +194,7 @@
       </section>
 
       <section class="info-grid">
-        <div class="info-item"><div class="info-label" data-i18n="lbl_date">Күні</div><div class="info-value" data-i18n="val_date">26 маусым 2026</div></div>
+        <div class="info-item"><div class="info-label" data-i18n="lbl_date">Күні</div><div class="info-value" data-i18n="val_date">28 маусым 2026</div></div>
         <div class="info-item"><div class="info-label" data-i18n="lbl_time">Уақыты</div><div class="info-value" data-i18n="val_time">16:00</div></div>
         <div class="info-item">
           <div class="info-label" data-i18n="lbl_place">Өтетін орны</div>
@@ -250,7 +250,7 @@
         eyebrow: "Үйлену тойына шақыру",
         names: "Талант & Мадина",
         lead: "Сіздерді қуанышымызға ортақ болуға шақырамыз",
-        lbl_date: "Күні", val_date: "26 маусым 2026",
+        lbl_date: "Күні", val_date: "28 маусым 2026",
         lbl_time: "Уақыты", val_time: "16:00",
         lbl_place: "Өтетін орны", val_place: "Magauya Grand Hall<br><span class='address-text'>Майқы би көшесі, 2/1</span>",
         lbl_city: "Қала", val_city: "Алматы",
@@ -265,7 +265,7 @@
         eyebrow: "Приглашение на свадьбу",
         names: "Талант & Мадина",
         lead: "Рады пригласить вас на наше торжество",
-        lbl_date: "Дата", val_date: "26 июня 2026",
+        lbl_date: "Дата", val_date: "28 июня 2026",
         lbl_time: "Время", val_time: "16:00",
         lbl_place: "Место", val_place: "Magauya Grand Hall<br><span class='address-text'>ул. Майкы Би, 2/1</span>",
         lbl_city: "Город", val_city: "Алматы",
@@ -280,7 +280,7 @@
         eyebrow: "Wedding Invitation",
         names: "Talant & Madina",
         lead: "We are delighted to invite you to our celebration",
-        lbl_date: "Date", val_date: "June 26, 2026",
+        lbl_date: "Date", val_date: "June 28, 2026",
         lbl_time: "Time", val_time: "4:00 PM",
         lbl_place: "Venue", val_place: "Magauya Grand Hall<br><span class='address-text'>Maiky Bi St., 2/1</span>",
         lbl_city: "City", val_city: "Almaty",
@@ -337,7 +337,7 @@
       runIntro();
     }
 
-    const DEADLINE_ISO = '2026-06-26T16:00:00+05:00'; 
+    const DEADLINE_ISO = '2026-06-28T16:00:00+05:00'; 
 
     function runIntro() {
       const video = document.getElementById('introVideo');
@@ -355,36 +355,34 @@
         if (isTransitioned) return;
         isTransitioned = true;
 
-        // 1. Сначала плавно гасим само видео (фон пока остается)
+        // 1. Сначала плавно гасим только само видео
         if(video) video.classList.add('fade-out-video');
         loader.style.opacity = '0';
 
-        // 2. Через 1.5 секунды после начала гашения видео, начинаем проявлять сайт
-        // Это уберет эффект "торопливости"
+        // 2. Ждем 1 секунду, пока видео растворяется, затем плавно убираем оверлей и проявляем сайт
         setTimeout(() => {
-          overlay.style.background = '#f9f7f4'; // Меняем черный фон на цвет сайта
+          overlay.style.background = '#f9f7f4'; 
           overlay.classList.add('fade-out-overlay');
           site.classList.add('visible');
-        }, 1500); // Было 1000, поставим 1500
+        }, 1000); 
         
-        // 3. Полностью удаляем оверлей из кода только через 4 секунды
-        setTimeout(() => overlay.style.display = 'none', 4000); // Было 2500
+        // 3. Полностью удаляем слой с видео через 3 секунды, чтобы он не мешал нажимать кнопки
+        setTimeout(() => overlay.style.display = 'none', 3000); 
       };
 
       if (video) {
         video.play().catch(() => showSite());
         
-        // ВОТ ТУТ ГЛАВНОЕ: когда видео закончилось, мы не прыгаем сразу, 
-        // а ждем 1.5 секунды перед запуском анимации исчезновения
+        // Когда видео заканчивается само: ждем 0.5 секунды, затем запускаем анимацию растворения
         video.onended = () => {
-           setTimeout(showSite, 1500); 
+           setTimeout(showSite, 500); 
         };
         
         video.onerror = showSite;
       }
 
-      // Если видео зависло или не грузится, через 8 секунд сайт все равно откроется
-      setTimeout(() => { if (!isTransitioned) showSite(); }, 8000);
+      // Аварийный таймер: увеличен до 12 секунд (так как видео длится 8 сек)
+      setTimeout(() => { if (!isTransitioned) showSite(); }, 12000);
     }
     
     function updateTimer() {
