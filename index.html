@@ -106,9 +106,14 @@
       letter-spacing: -0.5px; /* Чуть плотнее буквы для компактности */
     }
     .cover-subtitle {
-      font-size: 13px; font-weight: 300; letter-spacing: 2px;
-      color: rgba(45,45,45,0.6); margin-bottom: 36px;
-    }
+  font-family: 'Playfair Display', serif !important;
+  font-size: 14px; 
+  font-weight: 400; 
+  font-style: italic; /* Курсив для обложки */
+  letter-spacing: 1px;
+  color: rgba(45,45,45,0.7); 
+  margin-bottom: 36px;
+}
     .cover-divider {
       width: 40px; height: 1px;
       background: rgba(184,140,85,0.35);
@@ -201,8 +206,15 @@
       margin: 0; font-weight: 400; font-style: italic; line-height: 1.2; letter-spacing: -0.5px;
     }
     .no-break { white-space: nowrap; }
-    .lead { font-size: 24px; font-weight: 300; margin-top: 25px; opacity: 0.9; line-height: 1.5; }
-
+.lead { 
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(18px, 4.5vw, 24px); /* Сделали чуть гибче размер */
+  font-weight: 400; 
+  margin-top: 25px; 
+  opacity: 0.9; 
+  line-height: 1.6;
+  font-style: italic; /* Тот самый курсив */
+}
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0; }
     .info-item { background: var(--card-bg); border: 1px solid rgba(184,140,85,0.2); padding: 25px; text-align: center; }
     .info-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
@@ -284,10 +296,10 @@
     </div>
 
     <div class="envelope-card">
-      <svg class="envelope-icon" viewBox="0 0 46 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="44" height="36" rx="1" stroke="#b88c55" stroke-width="1.2"/>
-        <path d="M1 1l22 17L45 1" stroke="#b88c55" stroke-width="1.2"/>
-        <path d="M1 37l14-13M45 37L31 24" stroke="#b88c55" stroke-width="1.2" stroke-opacity="0.45"/>
+      <svg class="envelope-icon" viewBox="0 0 48 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="20" r="11" stroke="var(--accent)" stroke-width="1.5"/>
+        <circle cx="30" cy="16" r="11" stroke="var(--accent)" stroke-width="1.5"/>
+        <path d="M28 5 L30 2 L32 5 L30 8 Z" stroke="var(--accent)" stroke-width="1" fill="none"/>
       </svg>
 
       <span class="cover-invited" data-i18n-cover="invited">Сізді шақырды</span>
