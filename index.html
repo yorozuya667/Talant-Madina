@@ -369,7 +369,8 @@
 
       if (video) {
         video.play().catch(() => console.warn("Автоплей заблокирован"));
-        video.onended = showSite;
+        video.onended = () => {
+          setTimeout(showSite, 2000);
         video.onerror = showSite;
       }
 
