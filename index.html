@@ -24,7 +24,7 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 500; /* Сделали базовый текст толще */
+      font-weight: 500;
       overflow-x: hidden;
     }
 
@@ -53,7 +53,6 @@
         repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(184,140,85,0.06) 60px);
     }
 
-    /* Языковой переключатель на обложке */
     .cover-lang {
       position: absolute; top: 24px; right: 24px;
       display: flex; gap: 5px; background: #fff; padding: 6px; border-radius: 40px;
@@ -65,13 +64,11 @@
       border-radius: 20px; color: var(--text); cursor: pointer; transition: all 0.3s;
       border: none; background: transparent; font-family: inherit; outline: none;
     }
-    /* FIX: hover был белый на светлом — исправлено */
     .cover-lang-btn:hover:not(.active) { background: #f0ede8; }
     .cover-lang-btn.active { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(184,140,85,0.4); }
 
-    /* Карточка обложки — УКРУПНЕНА */
     .envelope-card {
-      width: min(440px, 92vw); /* шире чем было */
+      width: min(440px, 92vw);
       padding: 56px 40px 48px;
       text-align: center;
       position: relative;
@@ -83,7 +80,6 @@
       justify-content: center;
     }
 
-    /* Двойная рамка */
     .frame-outer {
       position: absolute; inset: 12px;
       border: 1px solid rgba(184,140,85,0.4);
@@ -93,7 +89,6 @@
       position: absolute; inset: 6px;
       border: 1px solid var(--accent);
     }
-    /* Жемчужины по углам */
     .pearl {
       position: absolute; width: 7px; height: 7px;
       background: var(--bg); border: 1px solid var(--accent);
@@ -104,7 +99,6 @@
     .p-bl { bottom: -4px; left: -4px; }
     .p-br { bottom: -4px; right: -4px; }
 
-    /* Лого — только один блок */
     .envelope-icon {
       width: 120px;
       height: auto;
@@ -119,10 +113,9 @@
       width: 100%;
     }
 
-    /* "Тойға шақыру" */
     .cover-invited {
       font-size: 15px;
-      font-weight: 800; /* Сделали жирнее */
+      font-weight: 800;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--accent);
@@ -132,9 +125,8 @@
 
     .cover-names {
       font-family: 'Cormorant Garamond', serif;
-      /* Чуть уменьшили clamp, чтобы жирный шрифт не вылезал за рамки */
-      font-size: clamp(24px, 6.5vw, 38px); 
-      font-weight: 700; /* Сделали жирным */
+      font-size: clamp(32px, 8.5vw, 48px); /* ВЕРНУЛИ КРУПНЫЙ РАЗМЕР */
+      font-weight: 700;
       font-style: italic;
       color: var(--text); line-height: 1.2;
       margin: 0 0 12px;
@@ -145,7 +137,7 @@
     .cover-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-size: 15px;
-      font-weight: 600; /* Сделали жирнее */
+      font-weight: 600;
       font-style: italic;
       letter-spacing: 1px;
       color: rgba(45,45,45,0.65);
@@ -158,7 +150,6 @@
       margin: 0 auto 32px;
     }
 
-    /* Кнопка ОТКРЫТЬ */
     .open-btn-wrap { position: relative; display: inline-block; }
     @keyframes pulse-ring {
       0%   { transform: scale(1);   opacity: 0.5; }
@@ -177,7 +168,7 @@
       border: 1px solid var(--accent); background: transparent;
       color: var(--accent); font-family: inherit;
       font-size: 16px; 
-      font-weight: 800; /* Сделали максимально жирным */
+      font-weight: 800;
       letter-spacing: 3px; text-transform: uppercase;
       cursor: pointer; transition: all 0.35s;
       position: relative; overflow: hidden;
@@ -252,23 +243,24 @@
     .lead {
       font-family: 'Cormorant Garamond', serif !important;
       font-size: clamp(18px, 4.5vw, 22px);
-      font-weight: 600; /* Сделали жирнее */
+      font-weight: 600;
       margin-top: 25px;
       opacity: 0.9;
       line-height: 1.7;
       font-style: italic;
     }
 
+    /* ИДЕАЛЬНО РОВНЫЕ ОТСТУПЫ */
     .lead-names {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(28px, 7vw, 52px);
       font-style: italic;
-      font-weight: 700; /* Сделали жирнее */
+      font-weight: 700;
       color: var(--text);
       white-space: nowrap;
       display: block;
       line-height: 1.2;
-      margin: 4px 0;
+      margin: 16px 0; /* ОДИНАКОВО СВЕРХУ И СНИЗУ */
     }
 
     .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 40px 0; }
@@ -326,10 +318,9 @@
     @media (max-width: 600px) {
       .info-grid { grid-template-columns: 1fr; }
       h1 { font-size: 34px !important; }
-      /* Уменьшили боковые отступы на мобильных с 28px до 20px, чтобы имена точно влезли */
       .envelope-card { padding: 48px 20px 40px; } 
-      .cover-invited { font-size: 13px; }
-      .open-btn { font-size: 14px; padding: 16px 44px; }
+      .cover-invited { font-size: 14px; } /* ВЕРНУЛИ РАЗМЕР */
+      .open-btn { font-size: 15px; padding: 18px 48px; } /* ВЕРНУЛИ РАЗМЕР */
     }
   </style>
 </head>
@@ -396,7 +387,7 @@
     <div id="mainContentBlock">
       <section class="hero">
         <span class="eyebrow" data-i18n="eyebrow">Үйлену тойына шақыру</span>
-        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат, дос жарандар!<br><span class="lead-names">Талант пен Мадинаның</span><br>үйлену тойына шақырамыз!<br>Күтеміз!</p>
+        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат, дос жарандар!<span class="lead-names">Талант пен Мадинаның</span>үйлену тойына шақырамыз!<br>Күтеміз!</p>
       </section>
 
       <section class="info-grid">
@@ -460,7 +451,8 @@
           open_btn: "Ашу"
         },
         eyebrow:   "Үйлену тойына шақыру",
-        lead:      "Құрметті ағайын, құда, жекжат, дос жарандар!<br><span class='lead-names'>Талант пен Мадинаның</span><br>үйлену тойына шақырамыз!<br>Күтеміз!",
+        // УБРАНЫ ТЕГИ <br> ВОКРУГ SPAN ДЛЯ ИДЕАЛЬНЫХ ОТСТУПОВ
+        lead:      "Құрметті ағайын, құда, жекжат, дос жарандар!<span class='lead-names'>Талант пен Мадинаның</span>үйлену тойына шақырамыз!<br>Күтеміз!",
         lbl_date:  "Той күні",      val_date:  "28 маусым 2026",
         lbl_time:  "Уақыты",        val_time:  "16:00",
         lbl_place: "Өтетін орны",   val_place: "Magauya Grand Hall мейрамханасы<br><span class='address-text'>Алматы қаласы, Майқы би көшесі, 2/1</span>",
@@ -479,7 +471,8 @@
           open_btn: "Открыть"
         },
         eyebrow:   "Приглашение на свадьбу",
-        lead:      "Уважаемые гости!<br>Приглашаем Вас на торжество, посвящённое бракосочетанию <span class='lead-names'>Таланта и Мадины</span>.<br>Ждём!",
+        // УБРАНЫ ТЕГИ <br> ВОКРУГ SPAN ДЛЯ ИДЕАЛЬНЫХ ОТСТУПОВ
+        lead:      "Уважаемые гости!<br>Приглашаем Вас на торжество, посвящённое бракосочетанию<span class='lead-names'>Таланта и Мадины</span>Ждём!",
         lbl_date:  "Дата",   val_date:  "28 июня 2026",
         lbl_time:  "Время",  val_time:  "16:00",
         lbl_place: "Место",  val_place: "Зал торжеств Magauya Grand Hall<br><span class='address-text'>г. Алматы, ул. Майкы Би, 2/1</span>",
@@ -498,7 +491,8 @@
           open_btn: "Open"
         },
         eyebrow:   "Wedding Invitation",
-        lead:      "Dear family, relatives, and friends!<br>We are delighted to invite you to the wedding of <span class='lead-names'>Talant and Madina</span>.<br>We await you!",
+        // УБРАНЫ ТЕГИ <br> ВОКРУГ SPAN ДЛЯ ИДЕАЛЬНЫХ ОТСТУПОВ
+        lead:      "Dear family, relatives, and friends!<br>We are delighted to invite you to the wedding of<span class='lead-names'>Talant and Madina</span>We await you!",
         lbl_date:  "Date",   val_date:  "June 28, 2026",
         lbl_time:  "Time",   val_time:  "4:00 PM",
         lbl_place: "Venue",  val_place: "Magauya Grand Hall<br><span class='address-text'>Almaty, Maiky Bi St., 2/1</span>",
