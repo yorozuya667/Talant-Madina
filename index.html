@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -130,7 +130,7 @@
     }
 
     .cover-names {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: clamp(26px, 7vw, 44px); /* крупнее */
       font-weight: 400; font-style: italic;
       color: var(--text); line-height: 1.2;
@@ -140,7 +140,7 @@
     }
 
     .cover-subtitle {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: 15px;
       font-weight: 400;
       font-style: italic;
@@ -191,6 +191,7 @@
     .open-btn:hover         { color: #fff; }
     .open-btn span,
     .open-btn svg           { position: relative; z-index: 1; }
+    .open-btn span          { font-style: italic; }
     .open-btn svg           { width: 18px; height: 18px; fill: currentColor; } /* крупнее */
 
     /* ═══════════════════════════════════════════════════════
@@ -239,14 +240,14 @@
     .hero { text-align: center; margin-bottom: 40px; }
     .eyebrow { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--accent); margin-bottom: 20px; display: block; }
     h1 {
-      font-family: 'Playfair Display', serif !important;
+      font-family: 'Cormorant Garamond', serif !important;
       font-size: clamp(30px, 8.5vw, 72px) !important;
       margin: 0; font-weight: 400; font-style: italic; line-height: 1.2; letter-spacing: -0.5px;
     }
     .no-break { white-space: nowrap; }
 
     .lead {
-      font-family: 'Playfair Display', serif !important;
+      font-family: 'Cormorant Garamond', serif !important;
       font-size: clamp(18px, 4.5vw, 22px);
       font-weight: 400;
       margin-top: 25px;
@@ -255,10 +256,22 @@
       font-style: italic;
     }
 
+    .lead-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 7vw, 52px);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      display: block;
+      line-height: 1.2;
+      margin: 4px 0;
+    }
+
     .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 40px 0; }
     .info-item { background: var(--card-bg); border: 1px solid rgba(184,140,85,0.2); padding: 25px; text-align: center; }
     .info-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
-    .info-value { font-family: 'Playfair Display', serif !important; font-size: 26px !important; font-weight: 700 !important; line-height: 1.2; }
+    .info-value { font-family: 'Cormorant Garamond', serif !important; font-size: 26px !important; font-weight: 700 !important; line-height: 1.2; }
     .address-text { font-family: 'Montserrat', sans-serif; font-size: 15px; opacity: 0.9; font-weight: 600; margin-top: 8px; display: block; }
 
     .maps-wrapper { text-align: center; margin-bottom: 50px; }
@@ -277,11 +290,11 @@
     .timer-wrap { margin: 60px 0; text-align: center; }
     .timer { display: flex; justify-content: center; gap: 15px; }
     .timer-box { width: 80px; }
-    .timer-num { font-family: 'Playfair Display', serif !important; font-size: 36px !important; display: block; border-bottom: 1px solid var(--accent); }
+    .timer-num { font-family: 'Cormorant Garamond', serif !important; font-size: 36px !important; display: block; border-bottom: 1px solid var(--accent); }
     .timer-label { font-size: 10px; text-transform: uppercase; margin-top: 5px; display: block; opacity: 0.6; }
 
     .form-card { background: #fff; padding: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-    .form-card h3 { font-family: 'Playfair Display', serif !important; font-size: 26px; margin: 0 0 30px; font-weight: 400; }
+    .form-card h3 { font-family: 'Cormorant Garamond', serif !important; font-size: 26px; margin: 0 0 30px; font-weight: 400; }
     .btn {
       display: block; background: var(--text); color: #fff; padding: 20px;
       font-family: inherit; font-size: 14px; text-decoration: none;
@@ -382,8 +395,7 @@
     <div id="mainContentBlock">
       <section class="hero">
         <span class="eyebrow" data-i18n="eyebrow">Үйлену тойына шақыру</span>
-        <h1 data-i18n="names">Талант <span class="no-break">& Мадина</span></h1>
-        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат, дос жарандар!<br>Сіздерді Талант пен Мадинаның үйлену тойына шақырамыз!<br>Күтеміз!</p>
+        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат, дос жарандар!<br><span class="lead-names">Талант пен Мадинаның</span><br>үйлену тойына шақырамыз!<br>Күтеміз!</p>
       </section>
 
       <section class="info-grid">
@@ -447,8 +459,7 @@
           open_btn: "Ашу"
         },
         eyebrow:   "Үйлену тойына шақыру",
-        names:     "Талант <span class='no-break'>& Мадина</span>",
-        lead:      "Құрметті ағайын, құда, жекжат, дос жарандар!<br>Сіздерді Талант пен Мадинаның үйлену тойына шақырамыз!<br>Күтеміз!",
+        lead:      "Құрметті ағайын, құда, жекжат, дос жарандар!<br><span class='lead-names'>Талант пен Мадинаның</span><br>үйлену тойына шақырамыз!<br>Күтеміз!",
         lbl_date:  "Той күні",      val_date:  "28 маусым 2026",
         lbl_time:  "Уақыты",        val_time:  "16:00",
         lbl_place: "Өтетін орны",   val_place: "Magauya Grand Hall мейрамханасы<br><span class='address-text'>Алматы қаласы, Майқы би көшесі, 2/1</span>",
@@ -467,8 +478,7 @@
           open_btn: "Открыть"
         },
         eyebrow:   "Приглашение на свадьбу",
-        names:     "Талант <span class='no-break'>& Мадина</span>",
-        lead:      "Уважаемые гости!<br>Приглашаем Вас на торжество, посвящённое бракосочетанию Таланта и Мадины.<br>Ждём!",
+        lead:      "Уважаемые гости!<br>Приглашаем Вас на торжество, посвящённое бракосочетанию <span class='lead-names'>Таланта и Мадины</span>.<br>Ждём!",
         lbl_date:  "Дата",   val_date:  "28 июня 2026",
         lbl_time:  "Время",  val_time:  "16:00",
         lbl_place: "Место",  val_place: "Зал торжеств Magauya Grand Hall<br><span class='address-text'>г. Алматы, ул. Майкы Би, 2/1</span>",
@@ -487,8 +497,7 @@
           open_btn: "Open"
         },
         eyebrow:   "Wedding Invitation",
-        names:     "Talant <span class='no-break'>& Madina</span>",
-        lead:      "Dear family, relatives, and friends!<br>We are delighted to invite you to the wedding of Talant and Madina.<br>We await you!",
+        lead:      "Dear family, relatives, and friends!<br>We are delighted to invite you to the wedding of <span class='lead-names'>Talant and Madina</span>.<br>We await you!",
         lbl_date:  "Date",   val_date:  "June 28, 2026",
         lbl_time:  "Time",   val_time:  "4:00 PM",
         lbl_place: "Venue",  val_place: "Magauya Grand Hall<br><span class='address-text'>Almaty, Maiky Bi St., 2/1</span>",
