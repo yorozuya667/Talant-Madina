@@ -33,6 +33,9 @@
       background-image: url('https://www.transparenttextures.com/patterns/felt.png');
     }
 
+    /* Специальный перенос только для мобилок */
+    .mobile-break { display: none; }
+
     /* ═══════════════════════════════════════════════════════
        ОБЛОЖКА
     ═══════════════════════════════════════════════════════ */
@@ -125,7 +128,6 @@
 
     .cover-names {
       font-family: 'Cormorant Garamond', serif;
-      /* УМНЫЙ РАЗМЕР: теперь он достаточно крупный, но не пробивает рамку (максимум 44px) */
       font-size: clamp(26px, 7.5vw, 44px); 
       font-weight: 700;
       font-style: italic;
@@ -331,6 +333,7 @@
       .envelope-card { padding: 48px 20px 40px; } 
       .cover-invited { font-size: 17px; } 
       .open-btn { font-size: 15px; padding: 18px 48px; }
+      .mobile-break { display: block; } /* Активируем перенос на мобилках */
     }
   </style>
 </head>
@@ -397,7 +400,7 @@
     <div id="mainContentBlock">
       <section class="hero">
         <span class="eyebrow" data-i18n="eyebrow">Үйлену тойына шақыру</span>
-        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат, дос жарандар!<span class="lead-names">Талант пен Мадинаның</span>үйлену тойына шақырамыз!<br>Күтеміз!</p>
+        <p class="lead" data-i18n="lead">Құрметті ағайын, құда, жекжат,<br class="mobile-break"> дос жарандар!<span class="lead-names">Талант пен Мадинаның</span>үйлену тойына шақырамыз!<br>Күтеміз!</p>
       </section>
 
       <section class="info-grid">
@@ -411,7 +414,8 @@
         </div>
         <div class="info-item">
           <div class="info-label" data-i18n="lbl_place">Өтетін орны</div>
-          <div class="info-value" data-i18n="val_place">Magauya Grand Hall мейрамханасы<br><span class="address-text">Алматы қаласы, Майқы би көшесі, 2/1</span></div>
+          <div class="info-value" data-i18n="val_place">Мейрамхана "Magauya Grand Hall"</div>
+          <span class="address-text" data-i18n="val_address">Алматы қаласы, Майқы би көшесі, 2/1</span>
         </div>
       </section>
 
@@ -461,10 +465,10 @@
           open_btn: "Ашу"
         },
         eyebrow:   "Үйлену тойына шақыру",
-        lead:      "Құрметті ағайын, құда, жекжат, дос жарандар!<span class='lead-names'>Талант пен Мадинаның</span>үйлену тойына шақырамыз!",
+        lead:      "Құрметті ағайын, құда, жекжат,<br class='mobile-break'> дос жарандар!<span class='lead-names'>Талант пен Мадинаның</span>үйлену тойына шақырамыз!<br>Күтеміз!",
         lbl_date:  "Той күні",      val_date:  "28 маусым 2026",
         lbl_time:  "Уақыты",        val_time:  "16:00",
-        lbl_place: "Өтетін орны",   val_place: "Magauya Grand Hall мейрамханасы<br><span class='address-text'>Алматы қаласы, Майқы би көшесі, 2/1</span>",
+        lbl_place: "Өтетін орны",   val_place: "Мейрамхана \"Magauya Grand Hall\"", val_address: "Алматы қаласы, Майқы би көшесі, 2/1",
         map_title: "Картадан ашу",
         lbl_days: "Күн", lbl_hours: "Сағат", lbl_mins: "Мин", lbl_secs: "Сек",
         form_title:    "Жауабыңызды асыға күтеміз",
@@ -483,7 +487,7 @@
         lead:      "Уважаемые гости!<br>Приглашаем Вас на торжество, посвящённое бракосочетанию<span class='lead-names'>Таланта и Мадины</span>Ждём!",
         lbl_date:  "Дата",   val_date:  "28 июня 2026",
         lbl_time:  "Время",  val_time:  "16:00",
-        lbl_place: "Место",  val_place: "Зал торжеств Magauya Grand Hall<br><span class='address-text'>г. Алматы, ул. Майкы Би, 2/1</span>",
+        lbl_place: "Место",  val_place: "Зал торжеств \"Magauya Grand Hall\"", val_address: "г. Алматы, ул. Майкы Би, 2/1",
         map_title: "Открыть на карте",
         lbl_days: "Дней", lbl_hours: "Часов", lbl_mins: "Мин", lbl_secs: "Сек",
         form_title:    "Ждём вашего скорого ответа",
@@ -502,7 +506,7 @@
         lead:      "Dear family, relatives, and friends!<br>We are delighted to invite you to the wedding of<span class='lead-names'>Talant and Madina</span>We await you!",
         lbl_date:  "Date",   val_date:  "June 28, 2026",
         lbl_time:  "Time",   val_time:  "4:00 PM",
-        lbl_place: "Venue",  val_place: "Magauya Grand Hall<br><span class='address-text'>Almaty, Maiky Bi St., 2/1</span>",
+        lbl_place: "Venue",  val_place: "Banquet Hall \"Magauya Grand Hall\"", val_address: "Almaty, Maiky Bi St., 2/1",
         map_title: "Open in Maps",
         lbl_days: "Days", lbl_hours: "Hours", lbl_mins: "Mins", lbl_secs: "Secs",
         form_title:    "We await your reply",
@@ -535,15 +539,14 @@
     });
     changeLanguage(localStorage.getItem('wedding_lang') || 'kz');
 
-    // ─── МУЗЫКА ───────────────────────────────────────────
-    const bgMusic     = document.getElementById('bgMusic');
+    const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
-    const iconMuted   = document.getElementById('icon-muted');
+    const iconMuted = document.getElementById('icon-muted');
     const iconPlaying = document.getElementById('icon-playing');
 
     function playMusic() {
       bgMusic.play().then(() => {
-        iconMuted.style.display   = 'none';
+        iconMuted.style.display = 'none';
         iconPlaying.style.display = 'block';
       }).catch(() => {});
     }
@@ -553,47 +556,41 @@
         playMusic();
       } else {
         bgMusic.pause();
-        iconMuted.style.display   = 'block';
+        iconMuted.style.display = 'block';
         iconPlaying.style.display = 'none';
       }
     });
 
-    // ─── КНОПКА "ОТКРЫТЬ" ────────────────────────────────
     document.getElementById('openBtn').addEventListener('click', () => {
       const cover = document.getElementById('coverScreen');
-      const anim  = document.getElementById('openingAnim');
-      const site  = document.getElementById('siteContent');
-
+      const anim = document.getElementById('openingAnim');
+      const site = document.getElementById('siteContent');
       playMusic();
-
       cover.classList.add('hide');
       anim.classList.add('active');
       requestAnimationFrame(() => requestAnimationFrame(() => anim.classList.add('open')));
-
       musicToggle.classList.add('visible');
       setTimeout(() => site.classList.add('visible'), 700);
       setTimeout(() => { anim.style.display = 'none'; cover.style.display = 'none'; }, 1600);
     });
 
-    // ─── ТАЙМЕР ───────────────────────────────────────────
     const DEADLINE = new Date('2026-06-28T16:00:00+05:00');
     function updateTimer() {
       const diff = DEADLINE - new Date();
       if (diff <= 0) return;
-      document.getElementById('days').textContent  = Math.floor(diff / 86400000).toString().padStart(2, '0');
+      document.getElementById('days').textContent = Math.floor(diff / 86400000).toString().padStart(2, '0');
       document.getElementById('hours').textContent = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-      document.getElementById('mins').textContent  = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-      document.getElementById('secs').textContent  = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+      document.getElementById('mins').textContent = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+      document.getElementById('secs').textContent = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
     }
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // ─── SUCCESS ──────────────────────────────────────────
     if (new URLSearchParams(window.location.search).get('success') === 'true') {
-      document.getElementById('coverScreen').style.display     = 'none';
+      document.getElementById('coverScreen').style.display = 'none';
       document.getElementById('siteContent').classList.add('visible');
       document.getElementById('mainContentBlock').style.display = 'none';
-      document.getElementById('successBlock').style.display    = 'block';
+      document.getElementById('successBlock').style.display = 'block';
       musicToggle.classList.add('visible');
       playMusic();
     }
